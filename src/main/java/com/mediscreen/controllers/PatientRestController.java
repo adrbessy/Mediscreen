@@ -8,7 +8,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,8 +58,6 @@ public class PatientRestController {
     Patient newPatient = null;
     try {
       logger.info("Post request with the endpoint 'patient'");
-      BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-      patient.setPassword(encoder.encode(patient.getPassword()));
       newPatient = patientService.savePatient(patient);
       logger.info(
           "response following the Post on the endpoint 'patient' with the given patient : {"
@@ -128,18 +125,13 @@ public class PatientRestController {
           if (patientname != null) {
             patientToUpdate.setName(patientname);
           }
-          String password = patient.getPassword();
-          if (password != null) {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            patientToUpdate.setPassword(encoder.encode(patient.getPassword()));
-          }
-          String fullname = patient.getFullname();
+          String fullname = patient.getName();
           if (fullname != null) {
-            patientToUpdate.setFullname(fullname);
+            patientToUpdate.setName(fullname);
           }
-          String role = patient.getRole();
-          if (role != null) {
-            patientToUpdate.setRole(role);
+          String genre = patient.getGenre();
+          if (genre != null) {
+            patientToUpdate.setGenre(genre);
           }
           patientService.savePatient(patientToUpdate);
         }

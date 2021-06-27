@@ -57,7 +57,6 @@ public class PatientController {
     logger.info(
         "GET request of the endpoint '/patient/update/{id}'");
     Patient patient = patientRepository.findById(id);
-    patient.setPassword("");
     model.addAttribute("patient", patient);
     return "patient/update";
   }
