@@ -1,4 +1,4 @@
-CREATE SEQUENCE public.users_id_seq;
+CREATE SEQUENCE public.patients_id_seq;
 
 CREATE TABLE Patients (
   id SMALLINT NOT NULL DEFAULT nextval('public.patients_id_seq'),

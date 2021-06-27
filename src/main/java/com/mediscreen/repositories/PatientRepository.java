@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long>, JpaSpecificationExecutor<Patient> {
 
-  Patient findByUsername(String username);
-
   Patient findById(Integer id);
 
   void deleteById(Integer id);
