@@ -39,7 +39,7 @@
 			<div class="form-group">
 				<label for="password" class="col-sm-2 control-label">Genre</label>
 				<div class="col-sm-10">
-					<label class="checkbox-inline"><input type="radio" th:field="*{genre}" th:value="Woman">Woman/label>
+					<label class="checkbox-inline"><input type="radio" th:field="*{genre}" th:value="Woman">Woman</label>
 					<label class="checkbox-inline"><input type="radio" th:field="*{genre}" th:value="Man">Man</label>
 					<p class="text-danger" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></p>
 				</div>
@@ -49,6 +49,13 @@
 				<div class="col-sm-10">
 					<input type="text" th:field="*{postalAddress}" id="postalAddress" placeholder="Postal Address" class="col-4">
 					<p class="text-danger" th:if="${#fields.hasErrors('postalAddress')}" th:errors="*{postalAddress}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="patientname" class="col-sm-2 control-label">Phone number</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{phoneNumber}" id="phoneNumber" placeholder="Phone number" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></p>
 				</div>
 			</div>
 
