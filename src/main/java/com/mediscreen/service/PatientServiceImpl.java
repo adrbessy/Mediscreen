@@ -109,4 +109,35 @@ public class PatientServiceImpl implements PatientService {
     return patient;
   }
 
+  /**
+   * Update a patient
+   * 
+   * @param id      The id of the patient to update
+   * @param patient A patient to update
+   */
+  @Override
+  public void updatePatient(Integer id, Patient patient) {
+    logger.debug("in the method updatePatient in the class PatientServiceImpl");
+    Patient patientToUpdate = patientRepository.findById(id);
+    if (patient.getFirstname() != null) {
+      patientToUpdate.setFirstname(patient.getFirstname());
+    }
+    if (patient.getName() != null) {
+      patientToUpdate.setName(patient.getName());
+    }
+    if (patient.getBirthdate() != null) {
+      patientToUpdate.setBirthdate(patient.getBirthdate());
+    }
+    if (patient.getGenre() != null) {
+      patientToUpdate.setGenre(patient.getGenre());
+    }
+    if (patient.getPostalAddress() != null) {
+      patientToUpdate.setPostalAddress(patient.getPostalAddress());
+    }
+    if (patient.getPhoneNumber() != null) {
+      patientToUpdate.setPhoneNumber(patient.getPhoneNumber());
+    }
+    savePatient(patientToUpdate);
+  }
+
 }

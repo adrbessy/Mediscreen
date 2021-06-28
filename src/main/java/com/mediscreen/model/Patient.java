@@ -21,7 +21,7 @@ public class Patient {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @NotBlank(message = "Firstname is mandatory")
+  @NotBlank(message = "First name is mandatory")
   private String firstname;
 
   @NotBlank(message = "Name is mandatory")
@@ -33,10 +33,8 @@ public class Patient {
   @NotBlank(message = "Genre is mandatory")
   private String genre;
 
-  @NotBlank(message = "Postal address is mandatory")
   private String postalAddress;
 
-  @NotBlank(message = "Phone number is mandatory")
   private String phoneNumber;
 
 }

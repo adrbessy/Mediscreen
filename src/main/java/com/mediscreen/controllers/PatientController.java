@@ -62,17 +62,16 @@ public class PatientController {
   }
 
   @PostMapping("/patient/update/{id}")
-  public String updatePatient(@PathVariable("id") Integer id, Patient patient,
+  public String updatePatient(@PathVariable("id") Integer id, @Valid Patient patient,
       BindingResult result, Model model) {
     logger.info(
         "POST request of the endpoint '/patient/update/{id}'");
-    if (result.hasErrors()) {
-      return "user/update";
+    if (!result.hasErrors()) {
+      patientService.updatePatient(id, patient);
+      model.addAttribute("patients", patientRepository.findAll());
+      return "redirect:/patient/list";
     }
-    patient.setId(id);
-    patientRepository.save(patient);
-    model.addAttribute("patients", patientRepository.findAll());
-    return "redirect:/patient/list";
+    return "/patient/update";
   }
 
   @GetMapping("/patient/delete/{id}")
