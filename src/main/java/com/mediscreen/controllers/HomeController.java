@@ -18,12 +18,4 @@ public class HomeController {
     return "home";
   }
 
-  @RequestMapping("/admin/home")
-  public String adminHome(Model model) {
-    logger.info(
-        "request of the endpoint '/admin/home'");
-    return "redirect:/bid/list";
-  }
-
-
 }

@@ -1,7 +1,6 @@
 package com.mediscreen.controllers;
 
 import com.mediscreen.model.Patient;
-import com.mediscreen.repositories.PatientRepository;
 import com.mediscreen.service.PatientService;
 import javax.validation.Valid;
 import org.apache.logging.log4j.LogManager;
@@ -21,20 +20,18 @@ public class PatientController {
   private static final Logger logger = LogManager.getLogger(PatientController.class);
 
   @Autowired
-  private PatientRepository patientRepository;
-  @Autowired
   private PatientService patientService;
 
   @RequestMapping("/patient/list")
   public String home(Model model) {
     logger.info(
         "request of the endpoint '/patient/list'");
-    model.addAttribute("patients", patientRepository.findAll());
+    model.addAttribute("patients", patientService.getPatients());
     return "patient/list";
   }
 
   @GetMapping("/patient/add")
-  public String addPatient(Patient patient) {
+  public String showAddPatientForm(Patient patient) {
     logger.info(
         "request of the endpoint '/patient/add'");
     return "patient/add";
@@ -45,8 +42,8 @@ public class PatientController {
     logger.info(
         "request of the endpoint '/patient/validate'");
     if (!result.hasErrors()) {
-      patientRepository.save(patient);
-      model.addAttribute("patients", patientRepository.findAll());
+      patientService.savePatient(patient);
+      model.addAttribute("patients", patientService.getPatients());
       return "redirect:/patient/list";
     }
     return "patient/add";
@@ -56,7 +53,7 @@ public class PatientController {
   public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     logger.info(
         "GET request of the endpoint '/patient/update/{id}'");
-    Patient patient = patientRepository.findById(id);
+    Patient patient = patientService.getPatient(id);
     model.addAttribute("patient", patient);
     return "patient/update";
   }
@@ -68,19 +65,10 @@ public class PatientController {
         "POST request of the endpoint '/patient/update/{id}'");
     if (!result.hasErrors()) {
       patientService.updatePatient(id, patient);
-      model.addAttribute("patients", patientRepository.findAll());
+      model.addAttribute("patients", patientService.getPatients());
       return "redirect:/patient/list";
     }
     return "/patient/update";
   }
 
-  @GetMapping("/patient/delete/{id}")
-  public String deletePatient(@PathVariable("id") Integer id, Model model) {
-    logger.info(
-        "GET request of the endpoint '/patient/delete/{id}'");
-    Patient patient = patientRepository.findById(id);
-    patientRepository.delete(patient);
-    model.addAttribute("patients", patientRepository.findAll());
-    return "redirect:/patient/list";
-  }
 }

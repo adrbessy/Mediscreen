@@ -29,14 +29,6 @@ public interface PatientService {
   boolean patientExist(Integer id);
 
   /**
-   * Delete a patient
-   * 
-   * @param id An id
-   * @return the deleted patient
-   */
-  Patient deletePatient(Integer id);
-
-  /**
    * Get a patient from an id
    * 
    * @param id The id of the patient table

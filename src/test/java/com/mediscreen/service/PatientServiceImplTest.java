@@ -2,7 +2,6 @@ package com.mediscreen.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import com.mediscreen.model.Patient;
 import com.mediscreen.repositories.PatientRepository;
@@ -68,22 +67,6 @@ public class PatientServiceImplTest {
     assertTrue(result);
   }
 
-
-  /**
-   * test to delete a patient.
-   * 
-   */
-  @Test
-  public void testDeletePatient() {
-    Integer id = 1;
-    patient = new Patient();
-
-    when(patientRepositoryMock.findById(id)).thenReturn(patient);
-    doNothing().when(patientRepositoryMock).deleteById(id);
-
-    Patient result = patientService.deletePatient(id);
-    assertThat(result).isEqualTo(patient);
-  }
 
   /**
    * test to get a patient.
