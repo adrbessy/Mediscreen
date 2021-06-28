@@ -67,7 +67,6 @@ public class PatientServiceImplTest {
     assertTrue(result);
   }
 
-
   /**
    * test to get a patient.
    * 
@@ -80,6 +79,33 @@ public class PatientServiceImplTest {
     when(patientRepositoryMock.findById(id)).thenReturn(patient);
 
     assertThat(patientService.getPatient(id)).isEqualTo(patient);
+  }
+
+  /**
+   * test to update a patient.
+   * 
+   */
+  @Test
+  public void testUpdatePatient() {
+    Patient patient = new Patient();
+    patient.setId(1);
+    patient.setFirstname("adrien");
+    patient.setName("Gaiveron");
+    patient.setBirthdate("05/08/1949");
+    patient.setGenre("Man");
+    Patient patient2 = new Patient();
+    patient2.setFirstname("Adrienne");
+    patient2.setName("Gaivero");
+    patient2.setBirthdate("05/08/1950");
+    patient2.setGenre("woman");
+    patient2.setPostalAddress("5 rue de la Chappe, Paris");
+    patient2.setPhoneNumber("089898989898");
+
+    when(patientRepositoryMock.findById(patient.getId())).thenReturn(patient);
+
+    patientService.updatePatient(patient.getId(), patient2);
+
+    assertThat(patient.getFirstname()).isEqualTo(patient2.getFirstname());
   }
 
 }

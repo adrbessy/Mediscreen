@@ -32,15 +32,10 @@ public class PatientRestController {
   @GetMapping("/patients")
   public List<Patient> getPatients() {
     List<Patient> patientList = new ArrayList<>();
-    try {
-      logger.info("Get request with the endpoint 'patients'");
-      patientList = patientService.getPatients();
-      logger.info(
-          "response following the GET on the endpoint 'patients'.");
-    } catch (Exception exception) {
-      logger.error("Error in the PatientRestController in the method getPatients :"
-          + exception.getMessage());
-    }
+    logger.info("Get request with the endpoint 'patients'");
+    patientList = patientService.getPatients();
+    logger.info(
+        "response following the GET on the endpoint 'patients'.");
     return patientList;
   }
 
@@ -54,16 +49,11 @@ public class PatientRestController {
   @PostMapping("/patient")
   public Patient createPatient(@RequestBody Patient patient) {
     Patient newPatient = null;
-    try {
-      logger.info("Post request with the endpoint 'patient'");
-      newPatient = patientService.savePatient(patient);
-      logger.info(
-          "response following the Post on the endpoint 'patient' with the given patient : {"
-              + patient.toString() + "}");
-    } catch (Exception exception) {
-      logger.error("Error in the PatientRestController in the method createPatient :"
-          + exception.getMessage());
-    }
+    logger.info("Post request with the endpoint 'patient'");
+    newPatient = patientService.savePatient(patient);
+    logger.info(
+        "response following the Post on the endpoint 'patient' with the given patient : {"
+            + patient.toString() + "}");
     return newPatient;
   }
 
@@ -80,34 +70,11 @@ public class PatientRestController {
       @RequestBody Patient patient) {
     Patient patientToUpdate = null;
     boolean existingPatientId = false;
-    try {
-      logger.info(
-          "Put request of the endpoint 'patient' with the id : {" + id + "}");
-      existingPatientId = patientService.patientExist(id);
-      if (existingPatientId) {
-        patientToUpdate = patientService.getPatient(id);
-        logger.info(
-            "response following the Put on the endpoint 'patient' with the given id : {"
-                + id + "}");
-        if (patientToUpdate != null) {
-          String patientname = patient.getName();
-          if (patientname != null) {
-            patientToUpdate.setName(patientname);
-          }
-          String fullname = patient.getName();
-          if (fullname != null) {
-            patientToUpdate.setName(fullname);
-          }
-          String genre = patient.getGenre();
-          if (genre != null) {
-            patientToUpdate.setGenre(genre);
-          }
-          patientService.savePatient(patientToUpdate);
-        }
-      }
-    } catch (Exception exception) {
-      logger.error("Error in the PatientRestController in the method updatePatient :"
-          + exception.getMessage());
+    logger.info(
+        "Put request of the endpoint 'patient' with the id : {" + id + "}");
+    existingPatientId = patientService.patientExist(id);
+    if (existingPatientId) {
+      patientService.updatePatient(id, patient);
     }
     if (!existingPatientId) {
       logger.error("The patient with the id " + id + " doesn't exist.");
