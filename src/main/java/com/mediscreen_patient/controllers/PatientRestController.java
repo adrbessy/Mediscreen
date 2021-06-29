@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -95,6 +96,31 @@ public class PatientRestController {
       throw new NonexistentException("The patient with the id " + id + " doesn't exist.");
     }
     return patientToUpdate;
+  }
+
+  /**
+   * Delete - Delete a patient
+   * 
+   * @param id An id
+   * @return - The deleted patient
+   */
+  @DeleteMapping("/patient")
+  public Patient deletePatient(@RequestParam Integer id) {
+    Patient patient = null;
+    boolean existingPatient = false;
+    logger.info("Delete request with the endpoint 'patient'");
+    existingPatient = patientService.patientExist(id);
+    if (existingPatient) {
+      patient = patientService.deletePatient(id);
+      logger.info(
+          "response following the DELETE on the endpoint 'patient'.");
+    }
+    if (!existingPatient) {
+      logger.error("The patient with the id " + id + " doesn't exist.");
+      throw new NonexistentException(
+          "The patient with the id " + id + " doesn't exist.");
+    }
+    return patient;
   }
 
 }

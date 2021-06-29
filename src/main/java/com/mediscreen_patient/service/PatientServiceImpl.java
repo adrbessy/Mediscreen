@@ -1,9 +1,11 @@
 package com.mediscreen_patient.service;
 
+import com.mediscreen_patient.exceptions.IsForbiddenException;
 import com.mediscreen_patient.model.Patient;
 import com.mediscreen_patient.repositories.PatientRepository;
 import java.util.ArrayList;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +45,12 @@ public class PatientServiceImpl implements PatientService {
   @Override
   public Patient savePatient(Patient patient) {
     logger.debug("in the method savePatient in the class PatientServiceImpl");
-    Patient savedPatient = null;
-    try {
-      savedPatient = patientRepository.save(patient);
-    } catch (Exception exception) {
-      logger.error("Error when we try to save a patient :" + exception.getMessage());
+    if (patientRepository
+        .existsByfirstnameAndNameAndBirthdateAllIgnoreCase(patient.getFirstname(), patient.getName(),
+            patient.getBirthdate())) {
+      throw new IsForbiddenException("This patient " + patient + " already exist.");
     }
+    Patient savedPatient = patientRepository.save(patient);
     return savedPatient;
   }
 
@@ -117,6 +119,26 @@ public class PatientServiceImpl implements PatientService {
       patientToUpdate.setPhoneNumber(patient.getPhoneNumber());
     }
     savePatient(patientToUpdate);
+  }
+
+  /**
+   * Delete a patient
+   * 
+   * @param patient An patient
+   * @return the deleted patient
+   */
+  @Override
+  @Transactional
+  public Patient deletePatient(Integer id) {
+    logger.debug("in the method deletePatient in the class PatientServiceImpl");
+    Patient patient = null;
+    try {
+      patient = patientRepository.findById(id);
+      patientRepository.deleteById(id);
+    } catch (Exception exception) {
+      logger.error("Error in the method deletePatient :" + exception.getMessage());
+    }
+    return patient;
   }
 
 }
