@@ -1,8 +1,8 @@
-package com.mediscreen.controllers;
+package com.mediscreen_patient.controllers;
 
-import com.mediscreen.exceptions.NonexistentException;
-import com.mediscreen.model.Patient;
-import com.mediscreen.service.PatientService;
+import com.mediscreen_patient.exceptions.NonexistentException;
+import com.mediscreen_patient.model.Patient;
+import com.mediscreen_patient.service.PatientService;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;

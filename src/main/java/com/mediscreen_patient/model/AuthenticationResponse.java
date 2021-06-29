@@ -1,4 +1,4 @@
-package com.mediscreen.model;
+package com.mediscreen_patient.model;
 
 import java.io.Serializable;
 

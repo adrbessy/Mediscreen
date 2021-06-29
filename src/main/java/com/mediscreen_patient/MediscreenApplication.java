@@ -1,4 +1,4 @@
-package com.mediscreen;
+package com.mediscreen_patient;
 
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.boot.SpringApplication;

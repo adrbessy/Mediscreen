@@ -1,7 +1,7 @@
-package com.mediscreen.service;
+package com.mediscreen_patient.service;
 
-import com.mediscreen.model.Patient;
-import com.mediscreen.repositories.PatientRepository;
+import com.mediscreen_patient.model.Patient;
+import com.mediscreen_patient.repositories.PatientRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;

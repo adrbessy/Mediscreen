@@ -1,10 +1,11 @@
-package com.mediscreen.service;
+package com.mediscreen_patient.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
-import com.mediscreen.model.Patient;
-import com.mediscreen.repositories.PatientRepository;
+import com.mediscreen_patient.model.Patient;
+import com.mediscreen_patient.repositories.PatientRepository;
+import com.mediscreen_patient.service.PatientService;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;

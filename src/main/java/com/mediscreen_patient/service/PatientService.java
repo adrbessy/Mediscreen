@@ -1,6 +1,6 @@
-package com.mediscreen.service;
+package com.mediscreen_patient.service;
 
-import com.mediscreen.model.Patient;
+import com.mediscreen_patient.model.Patient;
 import java.util.List;
 
 public interface PatientService {

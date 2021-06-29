@@ -1,4 +1,4 @@
-package com.mediscreen.controllers;
+package com.mediscreen_patient.controllers;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
@@ -6,8 +6,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mediscreen.model.Patient;
-import com.mediscreen.service.PatientService;
+import com.mediscreen_patient.model.Patient;
+import com.mediscreen_patient.service.PatientService;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;

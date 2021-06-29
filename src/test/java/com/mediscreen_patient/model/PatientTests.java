@@ -1,5 +1,6 @@
-package com.mediscreen.model;
+package com.mediscreen_patient.model;
 
+import com.mediscreen_patient.model.Patient;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import nl.jqno.equalsverifier.EqualsVerifier;
