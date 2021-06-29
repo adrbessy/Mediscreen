@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @EnableEncryptableProperties
 @SpringBootApplication
-public class MediscreenApplication {
+public class Mediscreen_patient_Application {
 
   public static void main(String[] args) {
-    SpringApplication.run(MediscreenApplication.class, args);
+    SpringApplication.run(Mediscreen_patient_Application.class, args);
   }
 }
