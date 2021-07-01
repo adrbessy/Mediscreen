@@ -38,10 +38,10 @@ public class PatientRestControllerTest {
   @Test
   public void testCreatePatient() throws Exception {
     Patient patient = new Patient();
-    patient.setFirstname("adrien");
-    patient.setName("Gaiveron");
-    patient.setBirthdate("05/08/1949");
-    patient.setGenre("Man");
+    patient.setGiven("adrien");
+    patient.setFamily("Gaiveron");
+    patient.setDob("2004-06-18");
+    patient.setSex("M");
 
     when(patientServiceMock.savePatient(patient)).thenReturn(patient);
 
@@ -56,10 +56,10 @@ public class PatientRestControllerTest {
   public void testUpdatePatient() throws Exception {
     Patient patient = new Patient();
     patient.setId(1);
-    patient.setFirstname("adrien");
-    patient.setName("Gaiveron");
-    patient.setBirthdate("05/08/1949");
-    patient.setGenre("Man");
+    patient.setGiven("adrien");
+    patient.setFamily("Gaiveron");
+    patient.setDob("2004-06-18");
+    patient.setSex("M");
 
     when(patientServiceMock.patientExist(patient.getId())).thenReturn(true);
     doNothing().when(patientServiceMock).updatePatient(patient.getId(), patient);

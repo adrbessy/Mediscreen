@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,20 +20,17 @@ public class Patient {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @NotBlank(message = "First name is mandatory")
-  private String firstname;
+  private String given;
 
-  @NotBlank(message = "Name is mandatory")
-  private String name;
+  private String family;
 
-  @NotBlank(message = "Birthdate is mandatory")
-  private String birthdate;
+  private String dob;
 
-  @NotBlank(message = "Genre is mandatory")
-  private String genre;
+  private String sex;
 
-  private String postalAddress;
+  // postal address
+  private String address;
 
-  private String phoneNumber;
+  private String phone;
 
 }

@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 import com.mediscreen_patient.model.Patient;
 import com.mediscreen_patient.repositories.PatientRepository;
-import com.mediscreen_patient.service.PatientService;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -90,23 +89,23 @@ public class PatientServiceImplTest {
   public void testUpdatePatient() {
     Patient patient = new Patient();
     patient.setId(1);
-    patient.setFirstname("adrien");
-    patient.setName("Gaiveron");
-    patient.setBirthdate("05/08/1949");
-    patient.setGenre("Man");
+    patient.setGiven("adrien");
+    patient.setFamily("Gaiveron");
+    patient.setDob("2000-06-18");
+    patient.setSex("M");
     Patient patient2 = new Patient();
-    patient2.setFirstname("Adrienne");
-    patient2.setName("Gaivero");
-    patient2.setBirthdate("05/08/1950");
-    patient2.setGenre("woman");
-    patient2.setPostalAddress("5 rue de la Chappe, Paris");
-    patient2.setPhoneNumber("089898989898");
+    patient.setGiven("adrienne");
+    patient.setFamily("Gaiverone");
+    patient.setDob("2004-06-18");
+    patient.setSex("F");
+    patient2.setAddress("5 rue de la Chappe, Paris");
+    patient2.setPhone("089898989898");
 
     when(patientRepositoryMock.findById(patient.getId())).thenReturn(patient);
 
     patientService.updatePatient(patient.getId(), patient2);
 
-    assertThat(patient.getFirstname()).isEqualTo(patient2.getFirstname());
+    assertThat(patient.getGiven()).isEqualTo(patient2.getGiven());
   }
 
 }

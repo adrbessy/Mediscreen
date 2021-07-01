@@ -14,6 +14,6 @@ public interface PatientRepository extends JpaRepository<Patient, Long>, JpaSpec
 
   boolean existsById(Integer id);
 
-  boolean existsByfirstnameAndNameAndBirthdateAllIgnoreCase(String firstname, String name, String birthdate);
+  boolean existsByGivenAndFamilyAndDobAllIgnoreCase(String given, String family, String dob);
 
 }

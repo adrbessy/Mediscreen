@@ -35,10 +35,10 @@ public class PatientControllerTest {
   @Test
   public void testHome() throws Exception {
     Patient patient = new Patient();
-    patient.setFirstname("adrien");
-    patient.setName("Gaiveron");
-    patient.setBirthdate("05/08/1949");
-    patient.setGenre("Man");
+    patient.setGiven("adrien");
+    patient.setFamily("Gaiveron");
+    patient.setDob("2004-06-18");
+    patient.setSex("M");
     List<Patient> patients = new ArrayList<>();
     patients.add(patient);
 
@@ -57,10 +57,10 @@ public class PatientControllerTest {
   @Test
   public void testValidate() throws Exception {
     Patient patient = new Patient();
-    patient.setFirstname("adrien");
-    patient.setName("Gaiveron");
-    patient.setBirthdate("05/08/1949");
-    patient.setGenre("Man");
+    patient.setGiven("adrien");
+    patient.setFamily("Gaiveron");
+    patient.setDob("2004-06-18");
+    patient.setSex("M");
     List<Patient> patients = new ArrayList<>();
     patients.add(patient);
 
@@ -77,10 +77,10 @@ public class PatientControllerTest {
   public void testShowUpdateForm() throws Exception {
     Patient patient = new Patient();
     patient.setId(1);
-    patient.setFirstname("adrien");
-    patient.setName("Gaiveron");
-    patient.setBirthdate("05/08/1949");
-    patient.setGenre("Man");
+    patient.setGiven("adrien");
+    patient.setFamily("Gaiveron");
+    patient.setDob("2004-06-18");
+    patient.setSex("M");
 
     when(patientServiceMock.getPatient(1)).thenReturn(patient);
 
@@ -92,10 +92,10 @@ public class PatientControllerTest {
   public void testUpdatePatient() throws Exception {
     Patient patient = new Patient();
     patient.setId(1);
-    patient.setFirstname("adrien");
-    patient.setName("Gaiveron");
-    patient.setBirthdate("05/08/1949");
-    patient.setGenre("Man");
+    patient.setGiven("adrien");
+    patient.setFamily("Gaiveron");
+    patient.setDob("2004-06-18");
+    patient.setSex("M");
     List<Patient> patients = new ArrayList<>();
     patients.add(patient);
 

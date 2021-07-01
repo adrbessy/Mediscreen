@@ -46,8 +46,8 @@ public class PatientServiceImpl implements PatientService {
   public Patient savePatient(Patient patient) {
     logger.debug("in the method savePatient in the class PatientServiceImpl");
     if (patientRepository
-        .existsByfirstnameAndNameAndBirthdateAllIgnoreCase(patient.getFirstname(), patient.getName(),
-            patient.getBirthdate())) {
+        .existsByGivenAndFamilyAndDobAllIgnoreCase(patient.getGiven(), patient.getFamily(),
+            patient.getDob())) {
       throw new IsForbiddenException("This patient " + patient + " already exist.");
     }
     Patient savedPatient = patientRepository.save(patient);
@@ -100,23 +100,23 @@ public class PatientServiceImpl implements PatientService {
   public void updatePatient(Integer id, Patient patient) {
     logger.debug("in the method updatePatient in the class PatientServiceImpl");
     Patient patientToUpdate = patientRepository.findById(id);
-    if (patient.getFirstname() != null) {
-      patientToUpdate.setFirstname(patient.getFirstname());
+    if (patient.getGiven() != null) {
+      patientToUpdate.setGiven(patient.getGiven());
     }
-    if (patient.getName() != null) {
-      patientToUpdate.setName(patient.getName());
+    if (patient.getFamily() != null) {
+      patientToUpdate.setFamily(patient.getFamily());
     }
-    if (patient.getBirthdate() != null) {
-      patientToUpdate.setBirthdate(patient.getBirthdate());
+    if (patient.getDob() != null) {
+      patientToUpdate.setDob(patient.getDob());
     }
-    if (patient.getGenre() != null) {
-      patientToUpdate.setGenre(patient.getGenre());
+    if (patient.getSex() != null) {
+      patientToUpdate.setSex(patient.getSex());
     }
-    if (patient.getPostalAddress() != null) {
-      patientToUpdate.setPostalAddress(patient.getPostalAddress());
+    if (patient.getAddress() != null) {
+      patientToUpdate.setAddress(patient.getAddress());
     }
-    if (patient.getPhoneNumber() != null) {
-      patientToUpdate.setPhoneNumber(patient.getPhoneNumber());
+    if (patient.getPhone() != null) {
+      patientToUpdate.setPhone(patient.getPhone());
     }
     savePatient(patientToUpdate);
   }
