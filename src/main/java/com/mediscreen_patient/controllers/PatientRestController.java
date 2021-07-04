@@ -32,7 +32,7 @@ public class PatientRestController {
    * @return - A patient
    */
   @GetMapping("/patient")
-  public Patient getMyUserAccount(@RequestParam Integer id) {
+  public Patient getPatient(@RequestParam Integer id) {
     Patient patient = null;
     logger.info("Get request with the endpoint 'patient'");
     patient = patientService.getPatient(id);
