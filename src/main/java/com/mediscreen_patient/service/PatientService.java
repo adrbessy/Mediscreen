@@ -41,6 +41,7 @@ public interface PatientService {
    * 
    * @param id      The id of the patient to update
    * @param patient A patient to update
+   * @return
    */
   void updatePatient(Integer id, Patient patient);
 

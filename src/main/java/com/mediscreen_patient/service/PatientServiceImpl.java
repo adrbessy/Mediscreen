@@ -118,7 +118,7 @@ public class PatientServiceImpl implements PatientService {
     if (patient.getPhone() != null) {
       patientToUpdate.setPhone(patient.getPhone());
     }
-    patientRepository.save(patient);
+    patientRepository.save(patientToUpdate);
   }
 
   /**

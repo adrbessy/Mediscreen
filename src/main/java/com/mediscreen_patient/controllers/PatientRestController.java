@@ -81,9 +81,8 @@ public class PatientRestController {
    * @return The updated patient object
    */
   @PutMapping("/patient/{id}")
-  public Patient updatePatient(@PathVariable("id") final Integer id,
+  public void updatePatient(@PathVariable("id") final Integer id,
       @RequestBody Patient patient) {
-    Patient patientToUpdate = null;
     boolean existingPatientId = false;
     logger.info(
         "Put request of the endpoint 'patient' with the id : {" + id + "}");
@@ -95,7 +94,6 @@ public class PatientRestController {
       logger.error("The patient with the id " + id + " doesn't exist.");
       throw new NonexistentException("The patient with the id " + id + " doesn't exist.");
     }
-    return patientToUpdate;
   }
 
   /**
