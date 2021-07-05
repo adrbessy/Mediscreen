@@ -3,7 +3,6 @@ package com.mediscreen_patient.controllers;
 import com.mediscreen_patient.exceptions.NonexistentException;
 import com.mediscreen_patient.model.Patient;
 import com.mediscreen_patient.service.PatientService;
-import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import org.apache.logging.log4j.LogManager;
@@ -49,9 +48,8 @@ public class PatientRestController {
    */
   @GetMapping("/patients")
   public List<Patient> getPatients() {
-    List<Patient> patientList = new ArrayList<>();
     logger.info("Get request with the endpoint 'patients'");
-    patientList = patientService.getPatients();
+    List<Patient> patientList = patientService.getPatients();
     logger.info(
         "response following the GET on the endpoint 'patients'.");
     return patientList;

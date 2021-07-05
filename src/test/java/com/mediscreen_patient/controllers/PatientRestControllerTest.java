@@ -70,5 +70,23 @@ public class PatientRestControllerTest {
     this.mockMvc.perform(builder).andExpect(MockMvcResultMatchers.status().isOk());
   }
 
+  @Test
+  public void testDeletePatient() throws Exception {
+    int id = 1;
+    Patient patient = new Patient();
+    patient.setId(1);
+    patient.setGiven("adrien");
+    patient.setFamily("Gaiveron");
+    patient.setDob("2004-06-18");
+    patient.setSex("M");
+
+    when(patientServiceMock.patientExist(id)).thenReturn(true);
+    when(patientServiceMock.deletePatient(id)).thenReturn(patient);
+
+    mockMvc
+        .perform(MockMvcRequestBuilders.delete("/patient?id=1"))
+        .andExpect(status().isOk());
+  }
+
 
 }

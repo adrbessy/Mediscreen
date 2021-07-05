@@ -2,6 +2,7 @@ package com.mediscreen_patient.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import com.mediscreen_patient.model.Patient;
 import com.mediscreen_patient.repositories.PatientRepository;
@@ -23,10 +24,6 @@ public class PatientServiceImplTest {
 
   private Patient patient;
 
-  /**
-   * test to get all the patients.
-   * 
-   */
   @Test
   public void testGetPatients() {
     patient = new Patient();
@@ -39,10 +36,6 @@ public class PatientServiceImplTest {
     assertThat(result).isEqualTo(patientList);
   }
 
-  /**
-   * test to save a patient
-   * 
-   */
   @Test
   public void testSavePatient() {
     patient = new Patient();
@@ -53,10 +46,6 @@ public class PatientServiceImplTest {
     assertThat(result).isEqualTo(patient);
   }
 
-  /**
-   * test to know if a patient exists.
-   * 
-   */
   @Test
   public void testPatientExist() {
     Integer id = 1;
@@ -67,10 +56,6 @@ public class PatientServiceImplTest {
     assertTrue(result);
   }
 
-  /**
-   * test to get a patient.
-   * 
-   */
   @Test
   public void testGetPatient() {
     Integer id = 1;
@@ -81,10 +66,6 @@ public class PatientServiceImplTest {
     assertThat(patientService.getPatient(id)).isEqualTo(patient);
   }
 
-  /**
-   * test to update a patient.
-   * 
-   */
   @Test
   public void testUpdatePatient() {
     Patient patient = new Patient();
@@ -94,10 +75,10 @@ public class PatientServiceImplTest {
     patient.setDob("2000-06-18");
     patient.setSex("M");
     Patient patient2 = new Patient();
-    patient.setGiven("adrienne");
-    patient.setFamily("Gaiverone");
-    patient.setDob("2004-06-18");
-    patient.setSex("F");
+    patient2.setGiven("adrienne");
+    patient2.setFamily("Gaiverone");
+    patient2.setDob("2004-06-18");
+    patient2.setSex("F");
     patient2.setAddress("5 rue de la Chappe, Paris");
     patient2.setPhone("089898989898");
 
@@ -106,6 +87,23 @@ public class PatientServiceImplTest {
     patientService.updatePatient(patient.getId(), patient2);
 
     assertThat(patient.getGiven()).isEqualTo(patient2.getGiven());
+  }
+
+  @Test
+  public void testDeletePatient() {
+    int id = 1;
+    Patient patient = new Patient();
+    patient.setId(1);
+    patient.setGiven("adrien");
+    patient.setFamily("Gaiveron");
+    patient.setDob("2000-06-18");
+    patient.setSex("M");
+
+    when(patientRepositoryMock.findById(id)).thenReturn(patient);
+    doNothing().when(patientRepositoryMock).deleteById(id);
+
+    Patient result = patientService.deletePatient(id);
+    assertThat(result).isEqualTo(patient);
   }
 
 }

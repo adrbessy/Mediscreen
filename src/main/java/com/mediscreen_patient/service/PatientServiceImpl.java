@@ -5,7 +5,6 @@ import com.mediscreen_patient.model.Patient;
 import com.mediscreen_patient.repositories.PatientRepository;
 import java.util.ArrayList;
 import java.util.List;
-import javax.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,16 +127,10 @@ public class PatientServiceImpl implements PatientService {
    * @return the deleted patient
    */
   @Override
-  @Transactional
   public Patient deletePatient(Integer id) {
     logger.debug("in the method deletePatient in the class PatientServiceImpl");
-    Patient patient = null;
-    try {
-      patient = patientRepository.findById(id);
-      patientRepository.deleteById(id);
-    } catch (Exception exception) {
-      logger.error("Error in the method deletePatient :" + exception.getMessage());
-    }
+    Patient patient = patientRepository.findById(id);
+    patientRepository.deleteById(id);
     return patient;
   }
 
