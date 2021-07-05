@@ -5,6 +5,7 @@ import com.mediscreen_patient.model.Patient;
 import com.mediscreen_patient.service.PatientService;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,17 +61,16 @@ public class PatientRestController {
    * Add a new patient
    * 
    * @param patient An object patient
+   * @return
    * @return The patient object saved
    */
   @PostMapping("/patient")
-  public Patient createPatient(@RequestBody Patient patient) {
-    Patient newPatient = null;
+  public void createPatient(@RequestBody Patient patient) {
     logger.info("Post request with the endpoint 'patient'");
-    newPatient = patientService.savePatient(patient);
+    patientService.savePatient(patient);
     logger.info(
         "response following the Post on the endpoint 'patient' with the given patient : {"
             + patient.toString() + "}");
-    return newPatient;
   }
 
   /**
@@ -82,7 +82,7 @@ public class PatientRestController {
    */
   @PutMapping("/patient/{id}")
   public void updatePatient(@PathVariable("id") final Integer id,
-      @RequestBody Patient patient) {
+      @Valid @RequestBody Patient patient) {
     boolean existingPatientId = false;
     logger.info(
         "Put request of the endpoint 'patient' with the id : {" + id + "}");

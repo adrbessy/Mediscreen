@@ -11,8 +11,8 @@ CREATE TABLE Patients (
   -- F or M
   sex CHAR(1) NOT NULL,
   -- postal address
-  address VARCHAR(125) NOT NULL,
-  phone VARCHAR(125) NOT NULL,
+  address VARCHAR(125),
+  phone VARCHAR(125),
 
   PRIMARY KEY (id)
 );
