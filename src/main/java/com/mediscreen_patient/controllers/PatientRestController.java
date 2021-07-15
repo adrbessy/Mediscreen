@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class PatientRestController {
    * @param id An id
    * @return - A patient
    */
+  @CrossOrigin
   @GetMapping("/patient")
   public Patient getPatient(@RequestParam Integer id) {
     Patient patient = null;
@@ -46,6 +48,7 @@ public class PatientRestController {
    * 
    * @return - An Iterable object of patients full filled
    */
+  @CrossOrigin
   @GetMapping("/patients")
   public List<Patient> getPatients() {
     logger.info("Get request with the endpoint 'patients'");
@@ -62,13 +65,15 @@ public class PatientRestController {
    * @return
    * @return The patient object saved
    */
+  @CrossOrigin
   @PostMapping("/patient")
-  public void createPatient(@RequestBody Patient patient) {
+  public boolean createPatient(@RequestBody Patient patient) {
     logger.info("Post request with the endpoint 'patient'");
     patientService.savePatient(patient);
     logger.info(
         "response following the Post on the endpoint 'patient' with the given patient : {"
             + patient.toString() + "}");
+    return true;
   }
 
   /**
@@ -78,8 +83,9 @@ public class PatientRestController {
    * @param patient A patient object with modifications
    * @return The updated patient object
    */
+  @CrossOrigin
   @PutMapping("/patient/{id}")
-  public void updatePatient(@PathVariable("id") final Integer id,
+  public boolean updatePatient(@PathVariable("id") final Integer id,
       @Valid @RequestBody Patient patient) {
     boolean existingPatientId = false;
     logger.info(
@@ -92,6 +98,7 @@ public class PatientRestController {
       logger.error("The patient with the id " + id + " doesn't exist.");
       throw new NonexistentException("The patient with the id " + id + " doesn't exist.");
     }
+    return true;
   }
 
   /**

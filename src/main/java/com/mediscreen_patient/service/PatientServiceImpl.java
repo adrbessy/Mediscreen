@@ -5,6 +5,7 @@ import com.mediscreen_patient.model.Patient;
 import com.mediscreen_patient.repositories.PatientRepository;
 import java.util.ArrayList;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +100,18 @@ public class PatientServiceImpl implements PatientService {
   public void updatePatient(Integer id, Patient patient) {
     logger.debug("in the method updatePatient in the class PatientServiceImpl");
     Patient patientToUpdate = patientRepository.findById(id);
+    System.out.println(
+        "patient.getGiven() != patientToUpdate.getGiven() : " + patient.getGiven().equals(patientToUpdate.getGiven()));
+    System.out.println("patient.getGiven() : " + patient.getGiven());
+    System.out.println("patientToUpdate.getGiven() : " + patientToUpdate.getGiven());
+    if (patientRepository
+        .existsByGivenAndFamilyAndDobAllIgnoreCase(patient.getGiven(), patient.getFamily(),
+            patient.getDob())
+        && !patient.getGiven().equals(patientToUpdate.getGiven())
+        && !patient.getFamily().equals(patientToUpdate.getFamily())
+        && !patient.getDob().equals(patientToUpdate.getDob())) {
+      throw new IsForbiddenException("This patient " + patient + " already exist.");
+    }
     if (patient.getGiven() != null) {
       patientToUpdate.setGiven(patient.getGiven());
     }
@@ -127,6 +140,7 @@ public class PatientServiceImpl implements PatientService {
    * @return the deleted patient
    */
   @Override
+  @Transactional
   public Patient deletePatient(Integer id) {
     logger.debug("in the method deletePatient in the class PatientServiceImpl");
     Patient patient = patientRepository.findById(id);
