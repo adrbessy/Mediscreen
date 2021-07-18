@@ -48,7 +48,7 @@ public class PatientServiceImpl implements PatientService {
     if (patientRepository
         .existsByGivenAndFamilyAndDobAllIgnoreCase(patient.getGiven(), patient.getFamily(),
             patient.getDob())) {
-      throw new IsForbiddenException("This patient " + patient + " already exist.");
+      throw new IsForbiddenException("This patient already exists.");
     }
     Patient savedPatient = patientRepository.save(patient);
     return savedPatient;
@@ -100,16 +100,13 @@ public class PatientServiceImpl implements PatientService {
   public void updatePatient(Integer id, Patient patient) {
     logger.debug("in the method updatePatient in the class PatientServiceImpl");
     Patient patientToUpdate = patientRepository.findById(id);
-    System.out.println(
-        "patient.getGiven() != patientToUpdate.getGiven() : " + patient.getGiven().equals(patientToUpdate.getGiven()));
-    System.out.println("patient.getGiven() : " + patient.getGiven());
-    System.out.println("patientToUpdate.getGiven() : " + patientToUpdate.getGiven());
     if (patientRepository
         .existsByGivenAndFamilyAndDobAllIgnoreCase(patient.getGiven(), patient.getFamily(),
             patient.getDob())
-        && !patient.getGiven().equals(patientToUpdate.getGiven())
-        && !patient.getFamily().equals(patientToUpdate.getFamily())
-        && !patient.getDob().equals(patientToUpdate.getDob())) {
+        &&
+        (!patient.getGiven().equals(patientToUpdate.getGiven())
+            || !patient.getFamily().equals(patientToUpdate.getFamily())
+            || !patient.getDob().equals(patientToUpdate.getDob()))) {
       throw new IsForbiddenException("This patient " + patient + " already exist.");
     }
     if (patient.getGiven() != null) {

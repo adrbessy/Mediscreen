@@ -1,0 +1,57 @@
+version: '3.7'
+
+services:
+  mediscreen-thymeleaf-ui:
+    image: mediscreen-thymeleaf-ui:0.0.1
+    depends_on:
+      - mediscreen-patient
+    ports:
+      - "9009:9009"
+    networks: 
+      - backend
+
+  mediscreen-angular-ui:
+    image: mediscreen-angular-ui:0.0.1
+    depends_on:
+      - mediscreen-patient
+    ports:
+      - "4200:4200"
+    networks: 
+      - backend
+    
+  mediscreen-patient:
+    image: mediscreen-patient:0.0.1
+    depends_on:
+     - postgresqldb
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresqldb:5432/mediscreen
+    ports:
+      - "9010:9010"
+    networks: 
+      - backend
+
+  postgresqldb:
+    image: postgres
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "adm_mediscreen" ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    restart: always
+    ports:
+      - "5432"
+    environment:
+      - POSTGRES_PASSWORD=medi
+      - POSTGRES_USER=adm_mediscreen
+      - POSTGRES_DB=mediscreen
+      - APP_DB_USER=adm_mediscreen
+      - APP_DB_PASS=medi
+      - APP_DB_NAME=mediscreen
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+    networks: 
+      - backend
+
+networks:
+  backend:
+    driver: "bridge"
