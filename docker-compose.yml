@@ -44,13 +44,15 @@ services:
       - POSTGRES_PASSWORD=medi
       - POSTGRES_USER=adm_mediscreen
       - POSTGRES_DB=mediscreen
-      - APP_DB_USER=adm_mediscreen
-      - APP_DB_PASS=medi
-      - APP_DB_NAME=mediscreen
+
     volumes:
       - ./db:/docker-entrypoint-initdb.d/
+      - data:/var/lib/postgresql/data
     networks: 
       - backend
+
+volumes:
+    data:
 
 networks:
   backend:
