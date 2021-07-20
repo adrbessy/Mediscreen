@@ -42,14 +42,14 @@ mvn spring-boot:run
 
 ### Docker deploiement
 
-Generate a jar file for each microservice with:
+Generate a jar file for each java microservice with:
 
 ```bash
 mvn package
 ```
 
 
-Go to the folder that contains the Dockerfile, and then to build an image type:
+Then go to the folder that contains the Dockerfile, and then to build an image type:
 
 ```bash
 docker build -t mediscreen-patient:0.0.1 .
@@ -58,7 +58,6 @@ docker build -t mediscreen-patient:0.0.1 .
 Then go to the respective folder of each microservice and to build the images type:
 
 ```bash
-docker build -t mediscreen-thymeleaf-ui:0.0.1 .
 docker build -t mediscreen-angular-ui:0.0.1 .
 ```
 
@@ -67,6 +66,7 @@ Build the image of postgres:
 ```bash
 docker build -t postgres:latest
 ```
+
 
 Then to deploy all mediscreen microservices, type :
 

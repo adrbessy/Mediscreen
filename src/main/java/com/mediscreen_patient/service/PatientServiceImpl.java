@@ -28,11 +28,7 @@ public class PatientServiceImpl implements PatientService {
   public List<Patient> getPatients() {
     logger.debug("in the method getPatients in the class PatientServiceImpl");
     List<Patient> patientList = new ArrayList<>();
-    try {
-      patientList = patientRepository.findAll();
-    } catch (Exception exception) {
-      logger.error("Error in the method getPatients :" + exception.getMessage());
-    }
+    patientList = patientRepository.findAll();
     return patientList;
   }
 
@@ -64,11 +60,7 @@ public class PatientServiceImpl implements PatientService {
   public boolean patientExist(Integer id) {
     logger.debug("in the method patientExist in the class PatientServiceImpl");
     boolean patientExist = false;
-    try {
-      patientExist = patientRepository.existsById(id);
-    } catch (Exception exception) {
-      logger.error("Error in the method patientExist :" + exception.getMessage());
-    }
+    patientExist = patientRepository.existsById(id);
     return patientExist;
   }
 
@@ -82,11 +74,7 @@ public class PatientServiceImpl implements PatientService {
   public Patient getPatient(Integer id) {
     logger.debug("in the method getPatient in the class PatientServiceImpl");
     Patient patient = null;
-    try {
-      patient = patientRepository.findById(id);
-    } catch (Exception exception) {
-      logger.error("Error in the method getPatient :" + exception.getMessage());
-    }
+    patient = patientRepository.findById(id);
     return patient;
   }
 

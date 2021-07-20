@@ -1,14 +1,6 @@
 version: '3.7'
 
 services:
-  mediscreen-thymeleaf-ui:
-    image: mediscreen-thymeleaf-ui:0.0.1
-    depends_on:
-      - mediscreen-patient
-    ports:
-      - "9009:9009"
-    networks: 
-      - backend
 
   mediscreen-angular-ui:
     image: mediscreen-angular-ui:0.0.1

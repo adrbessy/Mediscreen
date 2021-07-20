@@ -34,6 +34,24 @@ public class PatientRestControllerTest {
     mockMvc.perform(get("/patients")).andExpect(status().isOk());
   }
 
+  @Test
+  public void testGetPatient() throws Exception {
+    int id = 1;
+    Patient patient = new Patient();
+    patient.setId(1);
+    patient.setGiven("adrien");
+    patient.setFamily("Gaiveron");
+    patient.setDob("2004-06-18");
+    patient.setSex("M");
+
+    when(patientServiceMock.getPatient(id)).thenReturn(patient);
+
+
+    mockMvc
+        .perform(MockMvcRequestBuilders.get("/patient?id=1"))
+        .andExpect(status().isOk());
+  }
+
 
   @Test
   public void testCreatePatient() throws Exception {
@@ -69,6 +87,7 @@ public class PatientRestControllerTest {
         .content(new ObjectMapper().writeValueAsString(patient));
     this.mockMvc.perform(builder).andExpect(MockMvcResultMatchers.status().isOk());
   }
+
 
   @Test
   public void testDeletePatient() throws Exception {
