@@ -70,8 +70,7 @@ public class PatientRestController {
    * Add a new patient
    * 
    * @param patient An object patient
-   * @return
-   * @return The patient object saved
+   * @return true
    */
   @CrossOrigin
   @PostMapping("/patient")
