@@ -27,6 +27,28 @@ public class PatientRestController {
   private PatientService patientService;
 
   /**
+   * Does a patient exist?
+   * 
+   * @param id An id
+   * @return - A boolean
+   */
+  @CrossOrigin
+  @GetMapping("/patientExists")
+  public boolean doesPatientExist(@RequestParam Integer id) {
+    logger.info("Get request with the endpoint 'patient'");
+    boolean existingPatient = false;
+    existingPatient = patientService.patientExist(id);
+    logger.info(
+        "response following the GET on the endpoint 'patient'.");
+    if (!existingPatient) {
+      logger.error("The patient with the id " + id + " doesn't exist.");
+      throw new NonexistentException(
+          "The patient with the id " + id + " doesn't exist.");
+    }
+    return existingPatient;
+  }
+
+  /**
    * Read - Get a patient
    * 
    * @param id An id
