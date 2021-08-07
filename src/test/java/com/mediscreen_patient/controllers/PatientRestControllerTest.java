@@ -35,6 +35,17 @@ public class PatientRestControllerTest {
   }
 
   @Test
+  public void testDoesPatientExist() throws Exception {
+    int id = 1;
+
+    when(patientServiceMock.patientExist(id)).thenReturn(true);
+
+    mockMvc
+        .perform(MockMvcRequestBuilders.get("/patientExists?id=1"))
+        .andExpect(status().isOk());
+  }
+
+  @Test
   public void testGetPatient() throws Exception {
     int id = 1;
     Patient patient = new Patient();
@@ -44,8 +55,8 @@ public class PatientRestControllerTest {
     patient.setDob("2004-06-18");
     patient.setSex("M");
 
+    when(patientServiceMock.patientExist(id)).thenReturn(true);
     when(patientServiceMock.getPatient(id)).thenReturn(patient);
-
 
     mockMvc
         .perform(MockMvcRequestBuilders.get("/patient?id=1"))

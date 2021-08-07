@@ -34,5 +34,6 @@ VALUES
 ('Test', 'TestEarlyOnset', '2002-06-28', 'F','4 Valley Dr', '400-555-6666');   
 
   COMMIT;
+
 EOSQL
 

@@ -36,15 +36,37 @@ services:
       - POSTGRES_PASSWORD=medi
       - POSTGRES_USER=adm_mediscreen
       - POSTGRES_DB=mediscreen
-
     volumes:
       - ./db:/docker-entrypoint-initdb.d/
       - data:/var/lib/postgresql/data
     networks: 
       - backend
 
+  mediscreen-note:
+    image: mediscreen-note:0.0.1
+    depends_on:
+     - mongodb
+     - mediscreen-patient
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://localhost:27017/noteDb
+    ports:
+      - "9011:9011"
+    networks: 
+      - backend
+   
+  mongodb:
+    image: mongo:4
+    container_name: mongodbcontainer
+    ports: 
+        - 27017:27017
+    volumes: 
+        - mongo-volume:/data/db
+    networks: 
+        - backend
+
 volumes:
     data:
+    mongo-volume:
 
 networks:
   backend:

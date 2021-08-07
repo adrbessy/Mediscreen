@@ -35,11 +35,10 @@ public class PatientRestController {
   @CrossOrigin
   @GetMapping("/patientExists")
   public boolean doesPatientExist(@RequestParam Integer id) {
-    logger.info("Get request with the endpoint 'patient'");
-    boolean existingPatient = false;
-    existingPatient = patientService.patientExist(id);
+    logger.info("Get request with the endpoint 'patientExists'");
+    boolean existingPatient = patientService.patientExist(id);
     logger.info(
-        "response following the GET on the endpoint 'patient'.");
+        "response following the GET on the endpoint 'patientExists'.");
     if (!existingPatient) {
       logger.error("The patient with the id " + id + " doesn't exist.");
       throw new NonexistentException(
