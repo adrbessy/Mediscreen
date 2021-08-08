@@ -48,7 +48,9 @@ services:
      - mongodb
      - mediscreen-patient
     environment:
-      - SPRING_DATA_MONGODB_URI=mongodb://localhost:27017/noteDb
+      #- SPRING_DATA_MONGODB_HOST=mongodb
+      #- SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/noteDb
     ports:
       - "9011:9011"
     networks: 
@@ -56,7 +58,7 @@ services:
    
   mongodb:
     image: mongo:4
-    container_name: mongodbcontainer
+    container_name: mongodb
     ports: 
         - 27017:27017
     volumes: 
