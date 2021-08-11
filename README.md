@@ -59,6 +59,7 @@ Then go to the respective folder of each microservice and to build the images ty
 
 ```bash
 docker build -t mediscreen-angular-ui:0.0.1 .
+docker build -t mediscreen-note:0.0.1 .
 ```
 
 Build the image of postgres:
@@ -80,11 +81,28 @@ GET
 
 http://localhost:9010/patients
 
+http://localhost:9011/notes?patientId=2
+
+
+POST
+
 http://localhost:9010/patient
+
+http://localhost:9011/note
+
+
+PUT
 
 http://localhost:9010/patient/4
 
+http://localhost:9011/note/61092a7d6d70d9092b1de5be
+
+
+DEL
+
 http://localhost:9010/patient?id=12
+
+http://localhost:9011/note?id=6109914530a2995c1937e848
 
 
 ### Testing
