@@ -121,7 +121,7 @@ public class PatientServiceImpl implements PatientService {
   /**
    * Delete a patient
    * 
-   * @param patient An patient
+   * @param id A patient id
    * @return the deleted patient
    */
   @Override

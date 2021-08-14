@@ -136,6 +136,7 @@ public class PatientRestController {
    * @return - The deleted patient
    */
   @DeleteMapping("/patient")
+  @CrossOrigin
   public Patient deletePatient(@RequestParam Integer id) {
     Patient patient = null;
     boolean existingPatient = false;

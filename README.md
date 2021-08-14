@@ -60,6 +60,7 @@ Then go to the respective folder of each microservice and to build the images ty
 ```bash
 docker build -t mediscreen-angular-ui:0.0.1 .
 docker build -t mediscreen-note:0.0.1 .
+docker build -t mediscreen-report:0.0.1 .
 ```
 
 Build the image of postgres:
@@ -73,6 +74,21 @@ Then to deploy all mediscreen microservices, type :
 
 ```bash
 docker-compose up -d
+```
+
+
+Tests to enter note data in database:
+
+```bash
+curl -X POST -H "Content-Type: application/json" http://localhost:9011/note -d '{"patientId": "1", "note": "Patient states that they are feeling terrific Weight at or below recommended level"}'
+curl -X POST -H "Content-Type: application/json" http://localhost:9011/note -d '{"patientId": "2", "note": "Patient states that they are feeling a great deal of stress at work Patient also complains that their hearing seems Abnormal as of late"}'
+curl -X POST -H "Content-Type: application/json" http://localhost:9011/note -d '{"patientId": "2", "note": "Patient states that they have had a Reaction to medication within last 3 months Patient also complains that their hearing continues to be problematic"}'
+curl -X POST -H "Content-Type: application/json" http://localhost:9011/note -d '{"patientId": "3", "note": "Patient states that they are short term Smoker "}'
+curl -X POST -H "Content-Type: application/json" http://localhost:9011/note -d '{"patientId": "3", "note": "Patient states that they quit within last year Patient also complains that of Abnormal breathing spells Lab reports Cholesterol LDL high"}'
+curl -X POST -H "Content-Type: application/json" http://localhost:9011/note -d '{"patientId": "4", "note": "Patient states that walking up stairs has become difficult Patient also complains that they are having shortness of breath Lab results indicate Antibodies present elevated Reaction to medication"}'
+curl -X POST -H "Content-Type: application/json" http://localhost:9011/note -d '{"patientId": "4", "note": "Patient states that they are experiencing back pain when seated for a long time"}'
+curl -X POST -H "Content-Type: application/json" http://localhost:9011/note -d '{"patientId": "4", "note": "Patient states that they are a short term Smoker Hemoglobin A1C above recommended level"}'
+curl -X POST -H "Content-Type: application/json" http://localhost:9011/note -d '{"patientId": "4", "note": "Patient states that Body Height, Body Weight, Cholesterol, Dizziness and Reaction"}'
 ```
 
 

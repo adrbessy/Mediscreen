@@ -41,14 +41,13 @@ public interface PatientService {
    * 
    * @param id      The id of the patient to update
    * @param patient A patient to update
-   * @return
    */
   void updatePatient(Integer id, Patient patient);
 
   /**
    * Delete a patient
    * 
-   * @param id An id
+   * @param id A patient id
    * @return the deleted patient
    */
   Patient deletePatient(Integer id);

@@ -49,8 +49,22 @@ services:
      - mediscreen-patient
     environment:
       - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/noteDb
+      - "patient_url_cross=http://mediscreen-patient:9010"
     ports:
       - "9011:9011"
+    networks: 
+      - backend
+
+  mediscreen-report:
+    image: mediscreen-report:0.0.1
+    depends_on:
+     - mediscreen-note
+     - mediscreen-patient
+    environment:
+      - "note_url_cross=http://mediscreen-note:9011"
+      - "patient_url_cross=http://mediscreen-patient:9010"
+    ports:
+      - "9012:9012"
     networks: 
       - backend
    
