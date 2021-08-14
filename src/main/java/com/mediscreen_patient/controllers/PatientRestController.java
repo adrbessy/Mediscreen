@@ -1,5 +1,6 @@
 package com.mediscreen_patient.controllers;
 
+import com.mediscreen_patient.exceptions.IsForbiddenException;
 import com.mediscreen_patient.model.Patient;
 import com.mediscreen_patient.service.PatientService;
 import java.util.List;
@@ -7,6 +8,8 @@ import javax.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -97,8 +100,12 @@ public class PatientRestController {
    */
   @CrossOrigin
   @PostMapping("/patient")
-  public boolean createPatient(@RequestBody Patient patient) {
+  public boolean createPatient(@Valid @RequestBody Patient patient, Errors errors) {
     logger.info("Post request with the endpoint 'patient'");
+    if (errors.hasFieldErrors()) {
+      FieldError fieldError = errors.getFieldError();
+      throw new IsForbiddenException(fieldError.getDefaultMessage());
+    }
     patientService.savePatient(patient);
     logger.info(
         "response following the Post on the endpoint 'patient' with the given patient : {"
@@ -116,11 +123,18 @@ public class PatientRestController {
   @CrossOrigin
   @PutMapping("/patient/{id}")
   public boolean updatePatient(@PathVariable("id") final Integer id,
-      @Valid @RequestBody Patient patient) {
+      @Valid @RequestBody Patient patient, Errors errors) {
     logger.info(
         "Put request of the endpoint 'patient' with the id : {" + id + "}");
+    if (errors.hasFieldErrors()) {
+      FieldError fieldError = errors.getFieldError();
+      throw new IsForbiddenException(fieldError.getDefaultMessage());
+    }
     patientService.patientExist(id);
     patientService.updatePatient(id, patient);
+    logger.info(
+        "response following the Put on the endpoint 'patient' with the given patient : {"
+            + patient.toString() + "}");
     return true;
   }
 
