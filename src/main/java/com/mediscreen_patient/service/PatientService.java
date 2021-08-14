@@ -52,4 +52,12 @@ public interface PatientService {
    */
   Patient deletePatient(Integer id);
 
+  /**
+   * Get a patient
+   * 
+   * @param familyName The patient family name
+   * @return the patient
+   */
+  Patient getPatient(String familyName);
+
 }

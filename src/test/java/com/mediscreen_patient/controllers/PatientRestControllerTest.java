@@ -63,6 +63,21 @@ public class PatientRestControllerTest {
         .andExpect(status().isOk());
   }
 
+  @Test
+  public void testGetPatientByFamilyName() throws Exception {
+    Patient patient = new Patient();
+    patient.setGiven("adrien");
+    patient.setFamily("Bessy");
+    patient.setDob("2004-06-18");
+    patient.setSex("M");
+
+    when(patientServiceMock.getPatient("Bessy")).thenReturn(patient);
+
+    mockMvc
+        .perform(MockMvcRequestBuilders.get("/patientByFamilyName?familyName=Bessy"))
+        .andExpect(status().isOk());
+  }
+
 
   @Test
   public void testCreatePatient() throws Exception {

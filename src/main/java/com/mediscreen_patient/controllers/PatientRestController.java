@@ -1,6 +1,5 @@
 package com.mediscreen_patient.controllers;
 
-import com.mediscreen_patient.exceptions.NonexistentException;
 import com.mediscreen_patient.model.Patient;
 import com.mediscreen_patient.service.PatientService;
 import java.util.List;
@@ -33,17 +32,28 @@ public class PatientRestController {
    * @return - A boolean
    */
   @CrossOrigin
+  @GetMapping("/patientByFamilyName")
+  public Patient getPatient(@RequestParam String familyName) {
+    logger.info("Get request with the endpoint 'patient'");
+    Patient patient = patientService.getPatient(familyName);
+    logger.info(
+        "response following the GET on the endpoint 'patient'.");
+    return patient;
+  }
+
+  /**
+   * Does a patient exist?
+   * 
+   * @param id An id
+   * @return - A boolean
+   */
+  @CrossOrigin
   @GetMapping("/patientExists")
   public boolean doesPatientExist(@RequestParam Integer id) {
     logger.info("Get request with the endpoint 'patientExists'");
     boolean existingPatient = patientService.patientExist(id);
     logger.info(
         "response following the GET on the endpoint 'patientExists'.");
-    if (!existingPatient) {
-      logger.error("The patient with the id " + id + " doesn't exist.");
-      throw new NonexistentException(
-          "The patient with the id " + id + " doesn't exist.");
-    }
     return existingPatient;
   }
 
@@ -57,16 +67,8 @@ public class PatientRestController {
   @GetMapping("/patient")
   public Patient getPatient(@RequestParam Integer id) {
     logger.info("Get request with the endpoint 'patient'");
-    Patient patient = null;
-    boolean existingPatient = false;
-    existingPatient = patientService.patientExist(id);
-    if (existingPatient) {
-      patient = patientService.getPatient(id);
-    } else {
-      logger.error("The patient with the id " + id + " doesn't exist.");
-      throw new NonexistentException(
-          "The patient with the id " + id + " doesn't exist.");
-    }
+    patientService.patientExist(id);
+    Patient patient = patientService.getPatient(id);
     logger.info(
         "response following the GET on the endpoint 'patient'.");
     return patient;
@@ -115,17 +117,10 @@ public class PatientRestController {
   @PutMapping("/patient/{id}")
   public boolean updatePatient(@PathVariable("id") final Integer id,
       @Valid @RequestBody Patient patient) {
-    boolean existingPatientId = false;
     logger.info(
         "Put request of the endpoint 'patient' with the id : {" + id + "}");
-    existingPatientId = patientService.patientExist(id);
-    if (existingPatientId) {
-      patientService.updatePatient(id, patient);
-    }
-    if (!existingPatientId) {
-      logger.error("The patient with the id " + id + " doesn't exist.");
-      throw new NonexistentException("The patient with the id " + id + " doesn't exist.");
-    }
+    patientService.patientExist(id);
+    patientService.updatePatient(id, patient);
     return true;
   }
 
@@ -138,20 +133,12 @@ public class PatientRestController {
   @DeleteMapping("/patient")
   @CrossOrigin
   public Patient deletePatient(@RequestParam Integer id) {
-    Patient patient = null;
-    boolean existingPatient = false;
     logger.info("Delete request with the endpoint 'patient'");
-    existingPatient = patientService.patientExist(id);
-    if (existingPatient) {
-      patient = patientService.deletePatient(id);
-      logger.info(
-          "response following the DELETE on the endpoint 'patient'.");
-    }
-    if (!existingPatient) {
-      logger.error("The patient with the id " + id + " doesn't exist.");
-      throw new NonexistentException(
-          "The patient with the id " + id + " doesn't exist.");
-    }
+    patientService.patientExist(id);
+    Patient patient = patientService.deletePatient(id);
+    logger.info(
+        "response following the DELETE on the endpoint 'patient'.");
+
     return patient;
   }
 

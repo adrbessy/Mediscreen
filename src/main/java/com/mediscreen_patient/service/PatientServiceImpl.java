@@ -1,6 +1,7 @@
 package com.mediscreen_patient.service;
 
 import com.mediscreen_patient.exceptions.IsForbiddenException;
+import com.mediscreen_patient.exceptions.NonexistentException;
 import com.mediscreen_patient.model.Patient;
 import com.mediscreen_patient.repositories.PatientRepository;
 import java.util.ArrayList;
@@ -61,6 +62,11 @@ public class PatientServiceImpl implements PatientService {
     logger.debug("in the method patientExist in the class PatientServiceImpl");
     boolean patientExist = false;
     patientExist = patientRepository.existsById(id);
+    if (!patientExist) {
+      logger.error("The patient with the id " + id + " doesn't exist.");
+      throw new NonexistentException(
+          "The patient with the id " + id + " doesn't exist.");
+    }
     return patientExist;
   }
 
@@ -95,7 +101,7 @@ public class PatientServiceImpl implements PatientService {
         (!patient.getGiven().equals(patientToUpdate.getGiven())
             || !patient.getFamily().equals(patientToUpdate.getFamily())
             || !patient.getDob().equals(patientToUpdate.getDob()))) {
-      throw new IsForbiddenException("This patient " + patient + " already exist.");
+      throw new IsForbiddenException("This patient already exist.");
     }
     if (patient.getGiven() != null) {
       patientToUpdate.setGiven(patient.getGiven());
@@ -130,6 +136,24 @@ public class PatientServiceImpl implements PatientService {
     logger.debug("in the method deletePatient in the class PatientServiceImpl");
     Patient patient = patientRepository.findById(id);
     patientRepository.deleteById(id);
+    return patient;
+  }
+
+  @Override
+  public Patient getPatient(String familyName) {
+    int familyNameOccurences = patientRepository.countByFamily(familyName);
+    if (familyNameOccurences == 0) {
+      logger.error("The patient with the family name " + familyName + " doesn't exist.");
+      throw new NonexistentException(
+          "The patient with the family name " + familyName + " doesn't exist.");
+    }
+    if (familyNameOccurences > 1) {
+      logger.error(
+          "There are several patients with this family name, try the request with his patient id: curl http://.../assess?patientId={id}");
+      throw new IsForbiddenException(
+          "There are several patients with this family name, try the request with his patient id: curl http://.../assess?patientId={id}");
+    }
+    Patient patient = patientRepository.findByFamily(familyName);
     return patient;
   }
 

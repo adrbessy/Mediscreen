@@ -67,6 +67,17 @@ public class PatientServiceImplTest {
   }
 
   @Test
+  public void testGetPatientByFamilyName() {
+    patient = new Patient();
+    patient.setFamily("family");
+
+    when(patientRepositoryMock.countByFamily(patient.getFamily())).thenReturn(1);
+    when(patientRepositoryMock.findByFamily(patient.getFamily())).thenReturn(patient);
+
+    assertThat(patientService.getPatient(patient.getFamily())).isEqualTo(patient);
+  }
+
+  @Test
   public void testUpdatePatient() {
     Patient patient = new Patient();
     patient.setId(1);
