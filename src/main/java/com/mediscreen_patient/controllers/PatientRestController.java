@@ -1,6 +1,6 @@
 package com.mediscreen_patient.controllers;
 
-import com.mediscreen_patient.exceptions.IsForbiddenException;
+import com.mediscreen_patient.exceptions.BadRequestException;
 import com.mediscreen_patient.model.Patient;
 import com.mediscreen_patient.service.PatientService;
 import java.util.List;
@@ -104,7 +104,8 @@ public class PatientRestController {
     logger.info("Post request with the endpoint 'patient'");
     if (errors.hasFieldErrors()) {
       FieldError fieldError = errors.getFieldError();
-      throw new IsForbiddenException(fieldError.getDefaultMessage());
+      logger.error("Some fields of the patient object are incorrects.");
+      throw new BadRequestException(fieldError.getDefaultMessage());
     }
     patientService.savePatient(patient);
     logger.info(
@@ -128,7 +129,8 @@ public class PatientRestController {
         "Put request of the endpoint 'patient' with the id : {" + id + "}");
     if (errors.hasFieldErrors()) {
       FieldError fieldError = errors.getFieldError();
-      throw new IsForbiddenException(fieldError.getDefaultMessage());
+      logger.error("Some fields of the patient object are incorrects.");
+      throw new BadRequestException(fieldError.getDefaultMessage());
     }
     patientService.patientExist(id);
     patientService.updatePatient(id, patient);
