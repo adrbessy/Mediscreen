@@ -5,6 +5,10 @@ An application to predict risks of diseases.
 This app uses Java to run.
 
 
+### Architecture diagram
+![Alt text](doc/mediscreen_architecture_diagram.png?raw=true "Architecture diagram of Mediscreen")
+
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
@@ -98,6 +102,10 @@ GET
 http://localhost:9010/patients
 
 http://localhost:9011/notes?patientId=2
+
+http://localhost:9012/assess?patientId=41
+
+http://localhost:9012/assess/Test
 
 
 POST

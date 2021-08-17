@@ -101,7 +101,7 @@ public class PatientServiceImpl implements PatientService {
         (!patient.getGiven().equals(patientToUpdate.getGiven())
             || !patient.getFamily().equals(patientToUpdate.getFamily())
             || !patient.getDob().equals(patientToUpdate.getDob()))) {
-      throw new IsForbiddenException("This patient already exist.");
+      throw new IsForbiddenException("This patient already exists.");
     }
     if (patient.getGiven() != null) {
       patientToUpdate.setGiven(patient.getGiven());
