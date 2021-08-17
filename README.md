@@ -101,6 +101,8 @@ GET
 
 http://localhost:9010/patients
 
+http://localhost:9010/patient?id=1
+
 http://localhost:9011/notes?patientId=2
 
 http://localhost:9012/assess?patientId=41
